@@ -3,7 +3,7 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 
 const Rating = ({ value, text }) => {
   return (
-    <div className="flex flex-col justify-center items-center space-x-2">
+    <div className="flex justify-between items-center space-x-2">
       <div className="flex">
         <span>
           {value >= 1 ? (
