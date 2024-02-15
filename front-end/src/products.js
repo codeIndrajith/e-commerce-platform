@@ -9,7 +9,7 @@ const products = [
     category: 'Electronics',
     price: 98.99,
     countInStock: 10,
-    rating: 4.7,
+    rating: 4.0,
     numReviews: 12,
   },
   {
@@ -27,7 +27,7 @@ const products = [
   },
   {
     _id: '3',
-    name: 'Samsung QLED 4K Smart TV',
+    name: '4K Smart TV',
     image: '/images/smartTV.jpg',
     description:
       'Experience stunning 4K picture quality with this Samsung QLED Smart TV. Quantum Dot technology delivers vibrant colors and deep contrasts.',
@@ -35,7 +35,7 @@ const products = [
     category: 'Electronics',
     price: 1299.99,
     countInStock: 5,
-    rating: 4.8,
+    rating: 3.8,
     numReviews: 20,
   },
   {
@@ -48,7 +48,7 @@ const products = [
     category: 'Electronics',
     price: 49.99,
     countInStock: 20,
-    rating: 4.5,
+    rating: 3.5,
     numReviews: 15,
   },
   {
@@ -61,7 +61,7 @@ const products = [
     category: 'Electronics',
     price: 299.99,
     countInStock: 8,
-    rating: 4.6,
+    rating: 2.6,
     numReviews: 25,
   },
 ];
