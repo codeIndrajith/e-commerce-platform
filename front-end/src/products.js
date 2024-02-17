@@ -15,7 +15,7 @@ const products = [
   {
     _id: '2',
     name: 'iPhone 13 Pro Max',
-    image: '/images/iPhone 13 Pro Max.jpg',
+    image: '/images/iPhone13ProMax.jpg',
     description:
       'The latest iPhone with a stunning ProMotion display, powerful A15 Bionic chip, and professional-grade camera system.',
     brand: 'Apple',
