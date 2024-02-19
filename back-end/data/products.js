@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: '1',
     name: 'Airpods',
     image: '/images/Airpods.jpg',
     description:
@@ -13,7 +12,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '2',
     name: 'iPhone 13 Pro Max',
     image: '/images/iPhone13ProMax.jpg',
     description:
@@ -26,7 +24,6 @@ const products = [
     numReviews: 28,
   },
   {
-    _id: '3',
     name: '4K Smart TV',
     image: '/images/smartTV.jpg',
     description:
@@ -39,7 +36,6 @@ const products = [
     numReviews: 20,
   },
   {
-    _id: '4',
     name: 'Amazon Echo Dot (4th Gen)',
     image: '/images/echoDOT.jpg',
     description:
@@ -52,7 +48,6 @@ const products = [
     numReviews: 15,
   },
   {
-    _id: '5',
     name: 'Nintendo Switch',
     image: '/images/NintendoSwitch.jpg',
     description:
