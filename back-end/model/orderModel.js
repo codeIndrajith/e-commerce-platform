@@ -101,10 +101,13 @@ const orderSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-  },
-  {
-    timestamps: true,
+    deliveredAt: {
+      type: Date,
+    },
   }
+  // {
+  //   timestamps: true,
+  // }
 );
 
 const Order = mongoose.model('Order', orderSchema);
