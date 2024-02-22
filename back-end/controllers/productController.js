@@ -3,6 +3,7 @@ import Product from '../model/productModel.js';
 
 const getAllProducts = asyncHandler(async (req, res, next) => {
   const products = await Product.find({});
+  throw new Error('Some Error');
   res.json(products);
 });
 
@@ -11,9 +12,10 @@ const getSpecificProduct = asyncHandler(async (req, res, next) => {
 
   if (product) {
     return res.json(product);
+  } else {
+    res.status(404);
+    throw new Error('Resource not found!');
   }
-
-  res.status(404).json({ message: 'Product is not found!' });
 });
 
 const productsControllers = { getAllProducts, getSpecificProduct };
