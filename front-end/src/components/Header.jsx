@@ -1,33 +1,72 @@
 import React, { useState } from 'react';
-import { CiShoppingCart } from 'react-icons/ci';
-import { CiUser } from 'react-icons/ci';
+import { MdMenu, MdClose } from 'react-icons/md';
 
 const Header = () => {
-  return (
-    <header className="bg-gray-700 p-2">
-      <div className="w-full pl-10 pr-10 flex justify-between items-center">
-        <div className="">
-          <a className="text-white" href="/">
-            IBshop
-          </a>
-        </div>
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-        <div className="flex justify-between items-center space-x-5">
-          <div className="flex justify-center items-center space-x-2">
-            <CiShoppingCart className="text-white" />
-            <a className="text-white" href="/cart">
-              Cart
-            </a>
-          </div>
-          <div className="flex justify-center items-center space-x-2">
-            <CiUser className="text-white" />
-            <a className="text-white" href="/sign-in">
-              Sign IN
-            </a>
-          </div>
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  return (
+    <nav className="relative select-none bg-black lg:flex lg:items-stretch w-full">
+      <div className="flex flex-no-shrink items-stretch h-12">
+        <a
+          href="/"
+          className="flex-no-grow flex-no-shrink relative pl-[4.5%] leading-normal text-white no-underline flex items-center hover:bg-grey-dark"
+        >
+          IBshop
+        </a>
+        <div className="block items-center mt-3 lg:hidden cursor-pointer ml-auto relative w-12 h-12 pr-[6%]">
+          {!isMenuOpen && (
+            <button className="text-white cursor-pointer" onClick={toggleMenu}>
+              <MdMenu />
+            </button>
+          )}
+          {isMenuOpen && (
+            <button className="text-white cursor-pointer" onClick={toggleMenu}>
+              <MdClose />
+            </button>
+          )}
         </div>
       </div>
-    </header>
+
+      <div
+        className={`hidden lg:flex items-center pl-[78%] ${
+          isMenuOpen ? 'absolute' : 'relative'
+        }`}
+      >
+        <a
+          href="/cart"
+          className="py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark"
+        >
+          Cart
+        </a>
+        <a
+          href="sign-in"
+          className="py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark"
+        >
+          Login
+        </a>
+      </div>
+
+      {isMenuOpen && (
+        <div className="lg:hidden flex flex-col items-start pl-[2.7%]">
+          <a
+            href="/cart"
+            className="py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark"
+          >
+            Cart
+          </a>
+          <a
+            href="sign-in"
+            className="py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark"
+          >
+            Login
+          </a>
+        </div>
+      )}
+    </nav>
   );
 };
 
