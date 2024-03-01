@@ -1,7 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Rating from '../components/Rating';
+import { Alert } from '@material-tailwind/react';
 import { useGetProductQuery } from '../slices/productsApiSlice';
+import { DotLoader } from 'react-spinners';
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
@@ -15,9 +17,9 @@ const ProductScreen = () => {
         &larr; Go Back
       </Link>
       {isLoading ? (
-        <h1>isLoading......</h1>
+        <DotLoader className="fixed left-1/2" color="#36d7b7" size={100} />
       ) : error ? (
-        <div>{error?.data?.message || error.error}</div>
+        <Alert color="blue">{error?.data?.Alert || error.error}</Alert>
       ) : (
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

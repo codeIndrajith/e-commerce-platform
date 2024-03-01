@@ -1,6 +1,8 @@
 import React from 'react';
 import Product from '../components/Product';
+import { Alert } from '@material-tailwind/react';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
+import { DotLoader } from 'react-spinners';
 
 const HomeScreen = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
@@ -8,9 +10,9 @@ const HomeScreen = () => {
   return (
     <>
       {isLoading ? (
-        <h1>isLoading......</h1>
+        <DotLoader className="fixed left-1/2" color="#36d7b7" size={100} />
       ) : error ? (
-        <div>{error?.data?.message || error.error}</div>
+        <Alert color="blue">{error?.data?.message || error.error}</Alert>
       ) : (
         <>
           <h1 className="text-2xl font-bold mb-4">Latest Products</h1>
