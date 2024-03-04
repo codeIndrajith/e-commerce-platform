@@ -1,13 +1,27 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Rating from '../components/Rating';
 import { Alert } from '@material-tailwind/react';
 import { useGetProductQuery } from '../slices/productsApiSlice';
 import { DotLoader } from 'react-spinners';
+import { useState } from 'react';
+import { addToCart } from '../slices/cartSlice';
+import { useDispatch } from 'react-redux';
+
+// useDispatch allows React components to dispatch actions to the Redux store. The useDispatch is hook in the redux library
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
+  const [qty, setQty] = useState(1);
   const { data: product, isLoading, error } = useGetProductQuery(productId);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const addToCartHandler = () => {
+    dispatch(addToCart({ ...product, qty }));
+    navigate('/cart');
+  };
   return (
     <>
       <Link
@@ -45,13 +59,37 @@ const ProductScreen = () => {
                 <p className="text-gray-700">
                   Availability:{' '}
                   <strong>
-                    {product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
+                    {parseInt(product.countInStock) > 0 ? (
+                      <form className="flex justify-start items-center space-x-4">
+                        <label htmlFor="quantity" className="block mb-2">
+                          Quantity
+                        </label>
+                        <select
+                          name=""
+                          id=""
+                          value={qty}
+                          onChange={(e) => setQty(Number(e.target.value))}
+                          className="block w-1/2 sm:w-1/2 md:w-1/2 lg:w-1/4 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-400 focus:ring focus:ring-blue-200"
+                        >
+                          {[
+                            ...Array(parseInt(product.countInStock)).keys(),
+                          ].map((index) => (
+                            <option key={index + 1} value={index + 1}>
+                              {index + 1}
+                            </option>
+                          ))}
+                        </select>
+                      </form>
+                    ) : (
+                      'Out of Stock'
+                    )}
                   </strong>
                 </p>
               </div>
               <button
                 type="button"
                 disabled={product.countInStock === 0}
+                onClick={addToCartHandler}
                 className={`bg-blue-500 text-white px-4 py-2 rounded ${
                   product.countInStock === 0 && 'opacity-50 cursor-not-allowed'
                 }`}
