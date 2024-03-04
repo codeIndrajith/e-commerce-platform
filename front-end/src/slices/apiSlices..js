@@ -5,6 +5,8 @@ import { BASE_URL } from '../constants.js';
 
 const baseQuery = fetchBaseQuery({ baseUrl: BASE_URL });
 
+// we need to add apiSlice because asynchronans request handle
+
 export const apiSlice = createApi({
   baseQuery,
   tagTypes: ['Product', 'User', 'Order'], // <- the tagTypes is a what are these fetch from back end
