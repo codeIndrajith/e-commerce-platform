@@ -3,7 +3,7 @@ import Rating from './Rating';
 
 const Product = (props) => {
   return (
-    <div>
+    <div className="">
       <div className="bg-white rounded-lg p-2 overflow-hidden shadow-md w-[90%] h-full grid grid-col-2">
         <div className="flex flex-col justify-center items-center w-full">
           <div className="w-[70%] sm:w-[80%]">
