@@ -5,7 +5,21 @@ import User from '../model/userModel.js';
 // @route     POST/api/users/login
 // @access    Public
 const authUser = asyncHandler(async (req, res, next) => {
-  res.send('Auth user');
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(401);
+    throw new Error('Invalid email or password');
+  }
 });
 
 // @desc      Register user
@@ -45,7 +59,7 @@ const getUser = asyncHandler(async (req, res, next) => {
 
 // @desc      Delete user
 // @route     DELETE /api/users/:id
-// @access    Private
+// @access    Private/Admin
 const deleteUser = asyncHandler(async (req, res, next) => {
   res.send('Delete user');
 });
