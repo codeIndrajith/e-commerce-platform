@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MdMenu, MdClose } from 'react-icons/md';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { CiShoppingCart } from 'react-icons/ci';
 import { CiLogin } from 'react-icons/ci';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../slices/authSlice';
+import { useLogoutMutation } from '../slices/usersApiSlice';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,12 +14,27 @@ const Header = () => {
   const { cartItems } = useSelector((state) => state.cart); // useSelector hook use to need to something select the state, then use to this hook like this.
   const { userInfo } = useSelector((state) => state.auth);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [logoutApiCall] = useLogoutMutation();
+
   const handleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate('/sign-in');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -71,9 +89,12 @@ const Header = () => {
                 <a href="/profile" className="block px-4 py-2 text-sm">
                   Profile
                 </a>
-                <a href="/logout" className="block px-4 py-2 text-sm">
+                <div
+                  className="block px-4 py-2 text-sm"
+                  onClick={logoutHandler}
+                >
                   Logout
-                </a>
+                </div>
               </div>
             )}
           </div>
@@ -113,9 +134,12 @@ const Header = () => {
                   <a href="/profile" className="block px-4 py-2 text-sm">
                     Profile
                   </a>
-                  <a href="/logout" className="block px-4 py-2 text-sm">
+                  <div
+                    className="block px-4 py-2 text-sm"
+                    onClick={logoutHandler}
+                  >
                     Logout
-                  </a>
+                  </div>
                 </div>
               )}
             </div>
