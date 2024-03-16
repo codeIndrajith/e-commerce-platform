@@ -5,7 +5,7 @@ import { UseDispatch, useDispatch, useSelector } from 'react-redux';
 import { DotLoader } from 'react-spinners';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
-import toast from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -14,23 +14,30 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [login , {isLoading}] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
-  const {userInfo} = useSelector((state) => state.auth)
+  const { userInfo } = useSelector((state) => state.auth);
 
-  const {search} = useLocation();
-  const sp = new URLSearchParams(search);
-  const redirect = sp.get('redirect') || '/';
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search); //  redirect=/shipping
+  const redirect = searchParams.get('redirect') || '/';
 
   useEffect(() => {
-    if(userInfo) {
-        navigate(redirect)
+    if (userInfo) {
+      navigate(redirect);
     }
-  },[userInfo , redirect , navigate])
+  }, [userInfo, redirect, navigate]);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log('submit');
+    try {
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate(redirect);
+    } catch (err) {
+      // toast.error(err?.data?.message || err.error);
+      console.log(err.data.message);
+    }
   };
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
@@ -74,16 +81,23 @@ const LoginScreen = () => {
             <button
               className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-800 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-black"
               onClick={submitHandler}
+              disabled={isLoading}
             >
               Login
             </button>
           </div>
+          {isLoading && (
+            <DotLoader className="fixed left-1/2" color="#36d7b7" size={100} />
+          )}
         </form>
 
         <p className="mt-8 text-xs font-light text-center text-gray-600 space-x-2">
           {' '}
           <span>Don't have an account?</span>{' '}
-          <Link className="text-black font-semibold underline" to="/register">
+          <Link
+            className="text-black font-semibold underline"
+            to={redirect ? `/register?redirect=${redirect}` : '/register'}
+          >
             Register
           </Link>
         </p>

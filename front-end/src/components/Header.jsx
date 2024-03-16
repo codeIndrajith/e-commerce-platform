@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { MdMenu, MdClose } from 'react-icons/md';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 import { CiShoppingCart } from 'react-icons/ci';
 import { CiLogin } from 'react-icons/ci';
 import { useSelector } from 'react-redux';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const { cartItems } = useSelector((state) => state.cart); // useSelector hook use to need to something select the state, then use to this hook like this.
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const handleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -51,12 +58,33 @@ const Header = () => {
             </span>
           )}
         </a>
-        <a
-          href="sign-in"
-          className="py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark"
-        >
-          <CiLogin />
-        </a>
+        {userInfo ? (
+          <div className="relative inline-block text-white">
+            <button
+              className="flex justify-center items-center border border-white pl-4 pr-auto"
+              onClick={handleDropdown}
+            >
+              {userInfo.name} <RiArrowDropDownLine />
+            </button>
+            {isOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-xl">
+                <a href="/profile" className="block px-4 py-2 text-sm">
+                  Profile
+                </a>
+                <a href="/logout" className="block px-4 py-2 text-sm">
+                  Logout
+                </a>
+              </div>
+            )}
+          </div>
+        ) : (
+          <a
+            href="sign-in"
+            className="py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark"
+          >
+            <CiLogin />
+          </a>
+        )}
       </div>
 
       {isMenuOpen && (
@@ -72,12 +100,33 @@ const Header = () => {
               </span>
             )}
           </a>
-          <a
-            href="sign-in"
-            className="py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark"
-          >
-            <CiLogin />
-          </a>
+          {userInfo ? (
+            <div className={`relative inline-block text-white left-4 mb-2`}>
+              <button
+                className="border border-white pl-4 pr-auto flex justify-center items-center"
+                onClick={handleDropdown}
+              >
+                {userInfo.name} <RiArrowDropDownLine />
+              </button>
+              {isOpen && (
+                <div className="absolute left-14 mt-2 w-48 bg-gray-800 rounded-lg shadow-xl">
+                  <a href="/profile" className="block px-4 py-2 text-sm">
+                    Profile
+                  </a>
+                  <a href="/logout" className="block px-4 py-2 text-sm">
+                    Logout
+                  </a>
+                </div>
+              )}
+            </div>
+          ) : (
+            <a
+              href="sign-in"
+              className="py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark"
+            >
+              <CiLogin />
+            </a>
+          )}
         </div>
       )}
     </nav>
