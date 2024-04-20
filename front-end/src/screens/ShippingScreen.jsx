@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { saveShippingAddress } from '../slices/cartSlice';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const ShippingScreen = () => {
   const cart = useSelector((state) => state.cart);
@@ -25,6 +26,7 @@ const ShippingScreen = () => {
 
   return (
     <div className="mx-auto max-w-lg p-6">
+      <CheckoutSteps step1 step2 />
       <h1 className="text-3xl font-semibold mb-6">Shipping</h1>
       <form onSubmit={submitHandler}>
         <div className="mb-4">
