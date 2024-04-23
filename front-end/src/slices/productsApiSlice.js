@@ -1,5 +1,5 @@
 import { PRODUCTS_URL } from '../constants';
-import { apiSlice } from './apiSlices.';
+import { apiSlice } from './apiSlices';
 
 export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
