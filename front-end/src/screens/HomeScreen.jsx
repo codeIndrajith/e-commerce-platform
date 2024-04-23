@@ -9,12 +9,17 @@ const HomeScreen = () => {
 
   return (
     <>
+      {/* Home image section */}
+      <div className="w-full p-0 h-screen">
+        <h1>Home section</h1>
+      </div>
+      {/* Latest product section */}
       {isLoading ? (
         <DotLoader className="fixed left-1/2" color="#36d7b7" size={100} />
       ) : error ? (
         <Alert color="blue">{error?.data?.message || error.error}</Alert>
       ) : (
-        <>
+        <div className="w-full h-screen">
           <h1 className="text-2xl font-bold mb-4">Latest Products</h1>
           <div className="grid grid-cols-12 gap-4">
             {products.map((product) => (
@@ -28,7 +33,7 @@ const HomeScreen = () => {
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
     </>
   );
