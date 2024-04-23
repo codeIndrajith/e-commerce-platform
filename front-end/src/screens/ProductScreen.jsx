@@ -88,10 +88,11 @@ const ProductScreen = () => {
               </div>
               <button
                 type="button"
-                disabled={product.countInStock === 0}
+                disabled={parseInt(product.countInStock) === 0}
                 onClick={addToCartHandler}
                 className={`bg-blue-500 text-white px-4 py-2 rounded ${
-                  product.countInStock === 0 && 'opacity-50 cursor-not-allowed'
+                  parseInt(product.countInStock) === 0 &&
+                  'opacity-50 cursor-not-allowed'
                 }`}
               >
                 Add To Cart
