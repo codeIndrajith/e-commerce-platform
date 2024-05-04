@@ -21,7 +21,7 @@ const HomeScreen = () => {
       ) : (
         <div className="w-full h-screen">
           <h1 className="text-2xl font-bold mb-4">Latest Products</h1>
-          <div className="grid grid-cols-12 gap-4">
+          <div className="grid grid-cols-10 items-center gap-4">
             {products.map((product) => (
               <div
                 key={product._id}
