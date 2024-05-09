@@ -119,7 +119,7 @@ const OrderScreen = () => {
               {order.isDelivered ? (
                 <Alert color="green">Delivered on {order.deliveredAt}</Alert>
               ) : (
-                <Alert color="red">Not Delivered</Alert>
+                <Alert color="blue">Not Delivered</Alert>
               )}
             </div>
 
@@ -129,7 +129,7 @@ const OrderScreen = () => {
                 <strong>Method</strong> {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Alert color="blue">Paid on {order.paidAt}</Alert>
+                <Alert color="yellow">Paid on {order.paidAt}</Alert>
               ) : (
                 <Alert color="blue">Not Paid</Alert>
               )}
@@ -189,9 +189,9 @@ const OrderScreen = () => {
                         <DotLoader />
                       ) : (
                         <div>
-                          <button onClick={onApproveTest}>
+                          {/* <button onClick={onApproveTest}>
                             Test Pay Order
-                          </button>
+                          </button> */}
                           <div>
                             <PayPalButtons
                               createOrder={createOrder}
