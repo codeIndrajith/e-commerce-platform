@@ -10,7 +10,7 @@ router
 
 router.route('/my-orders').get(protect, orderControllers.getMyOrders);
 router.route('/:id').get(protect, orderControllers.getOrderById);
-router.route('/:id/pay').get(protect, orderControllers.updateOrderToPaid);
+router.route('/:id/pay').put(protect, orderControllers.updateOrderToPaid);
 router
   .route('/:id/deliver')
   .get(protect, admin, orderControllers.updateOrderToDelivered);
